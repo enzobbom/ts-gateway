@@ -8,3 +8,7 @@ management:
     web:
       exposure:
         include: health
+ts:
+  services:
+    user-service-uri: ${TS_USER_SERVICE_URI:http://localhost:8080}
+    task-service-uri: ${TS_TASK_SERVICE_URI:http://localhost:8081}
