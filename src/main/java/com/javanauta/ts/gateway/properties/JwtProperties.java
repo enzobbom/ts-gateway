@@ -1,4 +1,10 @@
 package com.javanauta.ts.gateway.properties;
 
-public class JwtProperties {
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+@ConfigurationProperties(prefix = "ts.jwt")
+public record JwtProperties(
+        String secret,
+        long expiration
+) {
 }
