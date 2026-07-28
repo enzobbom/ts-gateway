@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -42,9 +43,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
 
-        if (authorization == null || !authorization.startsWith("Bearer ")) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return;
+        if (authorization == null) {
+            throw new BadCredentialsException("Missing Authorization header");
+        }
+
+        if (!authorization.startsWith("Bearer ")) {
+            throw new BadCredentialsException("Invalid Authorization header");
         }
 
         try {
@@ -59,7 +63,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
 
         } catch (JwtException | IllegalArgumentException ex) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            throw new BadCredentialsException("Invalid JWT token", ex);
         }
     }
 }

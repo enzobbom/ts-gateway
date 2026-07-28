@@ -1,6 +1,8 @@
 package com.javanauta.ts.gateway.security.config;
 
+import com.javanauta.ts.gateway.exception.GatewayAuthenticationEntryPoint;
 import com.javanauta.ts.gateway.security.filter.JwtAuthenticationFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -10,7 +12,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
+@RequiredArgsConstructor
 public class SecurityConfig {
+    private final GatewayAuthenticationEntryPoint authenticationEntryPoint;
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
@@ -24,6 +28,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/v1/ceps/**").permitAll()
                         .anyRequest().authenticated()
                 )
+                .exceptionHandling(
+                        exception
+                                -> exception.authenticationEntryPoint(authenticationEntryPoint))
                 .addFilterBefore(
                         jwtAuthenticationFilter,
                         UsernamePasswordAuthenticationFilter.class
