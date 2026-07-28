@@ -25,14 +25,18 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-api:0.13.0'
     implementation 'com.github.enzobbom:ts-api-contract:v1.1.0'
 
+    compileOnly 'org.projectlombok:lombok'
+
+    annotationProcessor 'org.projectlombok:lombok'
+
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.13.0'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.13.0'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-cache-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-security-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-validation-test'
 
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-
-    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.13.0'
-    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.13.0'
 }
 
 dependencyManagement {
