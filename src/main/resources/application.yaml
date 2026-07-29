@@ -15,4 +15,13 @@ ts:
   jwt:
     secret: ${TS_JWT_SECRET}
     expiration: ${TS_JWT_EXPIRATION:86400000}
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    urls-primary-name: User Service
+    urls:
+      - name: User Service
+        url: /v3/api-docs/user-service
+      - name: Task Service
+        url: /v3/api-docs/task-service
 
