@@ -18,8 +18,7 @@ ts:
     user-service-uri: ${TS_USER_SERVICE_URI:http://localhost:8080}
     task-service-uri: ${TS_TASK_SERVICE_URI:http://localhost:8081}
   jwt:
-    secret: ${TS_JWT_SECRET}
-    expiration: ${TS_JWT_EXPIRATION:86400000}
+    secret: ${TS_JWT_SECRET:local-dev-jwt-secret}
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
