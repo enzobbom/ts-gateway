@@ -1,7 +1,7 @@
 package com.javanauta.ts.gateway.exception;
 
 import com.javanauta.ts.apicontract.response.ErrorResponse;
-import com.javanauta.ts.gateway.exception.enums.SecurityExceptionCode;
+import com.javanauta.ts.gateway.exception.enums.ExceptionCode;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ public class GatewayAuthenticationEntryPoint implements AuthenticationEntryPoint
         log.error("Authentication exception", authException);
 
         int httpStatusCode = HttpStatus.UNAUTHORIZED.value();
-        SecurityExceptionCode exceptionCode = SecurityExceptionCode.AUTHENTICATION_ERROR;
+        ExceptionCode exceptionCode = ExceptionCode.AUTHENTICATION_ERROR;
 
         ErrorResponse errorResponse = new ErrorResponse(
                 httpStatusCode,
