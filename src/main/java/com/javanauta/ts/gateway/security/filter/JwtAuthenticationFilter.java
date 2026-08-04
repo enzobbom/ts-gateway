@@ -29,7 +29,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String path = request.getServletPath();
         String method = request.getMethod();
 
-        if (path.startsWith("/v3/api-docs") || path.startsWith("/swagger-ui")) {
+        if (path.startsWith("/v3/api-docs")
+                || path.startsWith("/swagger-ui")
+                || path.startsWith("/actuator/health")) {
+
             return true;
         }
 
@@ -41,7 +44,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return path.startsWith("/api/v1/ceps/");
         }
 
-        return path.equals("/actuator/health");
+        return false;
     }
 
     @Override
@@ -50,12 +53,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
 
-        if (authorization == null) {
-            throw new BadCredentialsException("Missing Authorization header");
-        }
-
-        if (!authorization.startsWith("Bearer ")) {
-            throw new BadCredentialsException("Invalid Authorization header");
+        if (authorization == null || !authorization.startsWith("Bearer ")) {
+            filterChain.doFilter(request, response);
+            return;
         }
 
         try {
