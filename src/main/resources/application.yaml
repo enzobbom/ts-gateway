@@ -22,7 +22,7 @@ ts:
     user-service-uri: ${TS_USER_SERVICE_URI:http://localhost:8080}
     task-service-uri: ${TS_TASK_SERVICE_URI:http://localhost:8081}
   jwt:
-    secret: ${TS_JWT_SECRET:local-dev-jwt-secret}
+    secret: ${TS_JWT_SECRET:local-dev-jwt-secret-must-be-longer-than-32-chars}
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
@@ -32,4 +32,3 @@ springdoc:
         url: /v3/api-docs/user-service
       - name: Task Service
         url: /v3/api-docs/task-service
-
