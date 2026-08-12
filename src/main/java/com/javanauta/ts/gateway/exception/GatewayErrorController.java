@@ -36,15 +36,15 @@ public class GatewayErrorController implements ErrorController {
         ExceptionCode exceptionCode;
         if (hasCause(error, ConnectException.class) || hasCause(error, ClosedChannelException.class)) {
             exceptionCode = ExceptionCode.DOWNSTREAM_SERVICE_UNAVAILABLE;
-            log.warn("Downstream service unavailable", error);
+            log.warn("Downstream service unavailable: {}", error.getMessage());
 
         } else if (hasCause(error, SocketTimeoutException.class)) {
             exceptionCode = ExceptionCode.DOWNSTREAM_SERIVCE_TIMEOUT;
-            log.warn("Downstream service timeout", error);
+            log.warn("Downstream service timeout: {}", error.getMessage());
 
         } else {
-            log.error("An unexpected error occurred", error);
             exceptionCode = ExceptionCode.INTERNAL_SERVER_ERROR;
+            log.error("An unexpected error occurred", error);
         }
 
         HttpStatus httpCode = EXCEPTION_CODE_HTTP_STATUS_MAP.get(exceptionCode);
