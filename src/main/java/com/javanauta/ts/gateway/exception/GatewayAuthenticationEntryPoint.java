@@ -24,7 +24,7 @@ public class GatewayAuthenticationEntryPoint implements AuthenticationEntryPoint
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
-        log.error("Authentication exception", authException);
+        log.warn("Authentication exception: {}", authException.getMessage());
 
         int httpStatusCode = HttpStatus.UNAUTHORIZED.value();
         ExceptionCode exceptionCode = ExceptionCode.AUTHENTICATION_ERROR;
