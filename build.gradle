@@ -53,6 +53,12 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-cache-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-security-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-validation-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-webflux-test'
+	testImplementation 'org.junit.jupiter:junit-jupiter'
+	testImplementation 'org.mockito:mockito-core'
+	testImplementation 'org.mockito:mockito-junit-jupiter'
+	testImplementation 'org.wiremock:wiremock:3.13.2'
+	testImplementation 'org.assertj:assertj-core'
 
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
